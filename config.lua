@@ -16,6 +16,18 @@ Config.Tables = {
     RewardClaims = 'fb_recharge_reward_claims',
 }
 
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Auto SQL (自動執行安裝 SQL)
+-- Enable=false 可關閉自動建表
+-- File 預設使用 sql/install.sql
+-- ─────────────────────────────────────────────────────────────────────────────
+Config.AutoSQL = {
+    Enable = true,
+    File = 'sql/install.sql',
+    LogEachStatement = false,
+}
+
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Cumulative-recharge reward groups
 --
