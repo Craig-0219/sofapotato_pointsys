@@ -20,6 +20,7 @@ server_scripts {
     'server/framework/qbcore.lua',
     'server/framework/qbox.lua',
     -- Core modules
+    'server/autosql.lua',
     'server/database.lua',
     'server/reward_dispatcher.lua',
     'server/points.lua',
