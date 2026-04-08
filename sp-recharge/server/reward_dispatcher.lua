@@ -36,7 +36,7 @@ function RewardDispatcher.Dispatch(source, identifier, rewards)
         if not handler then
             local msg = ('No handler registered for reward type "%s"'):format(rType)
             table.insert(errors, msg)
-            print(('[fb-recharge-core][RewardDispatcher] WARNING: %s'):format(msg))
+            print(('[sp-recharge][RewardDispatcher] WARNING: %s'):format(msg))
             allOk = false
         else
             local ok, err = handler(source, identifier, reward)
@@ -108,7 +108,7 @@ RewardDispatcher.Register('item', function(source, identifier, reward)
     end
 
     -- TODO: add ox_inventory or other inventory system support here
-    print(('[fb-recharge-core][RewardDispatcher] item handler: no inventory bridge for framework "%s"'):format(Config.Framework))
+    print(('[sp-recharge][RewardDispatcher] item handler: no inventory bridge for framework "%s"'):format(Config.Framework))
     return false, 'inventory bridge not configured'
 end)
 
@@ -195,7 +195,7 @@ end)
 -- ── vehicle (stub) ───────────────────────────────────────────────────────────
 RewardDispatcher.Register('vehicle', function(source, identifier, reward)
     -- TODO: integrate with a vehicle ownership resource (e.g. qb-vehiclekeys, ox_lib vehicle)
-    print(('[fb-recharge-core][RewardDispatcher] STUB vehicle reward for %s: model=%s'):format(
+    print(('[sp-recharge][RewardDispatcher] STUB vehicle reward for %s: model=%s'):format(
         identifier, tostring(reward.model)
     ))
     if source and source > 0 then
@@ -208,7 +208,7 @@ end)
 RewardDispatcher.Register('vip_days', function(source, identifier, reward)
     -- TODO: integrate with your VIP resource
     local days = tonumber(reward.days) or 0
-    print(('[fb-recharge-core][RewardDispatcher] STUB vip_days reward for %s: days=%d'):format(
+    print(('[sp-recharge][RewardDispatcher] STUB vip_days reward for %s: days=%d'):format(
         identifier, days
     ))
     if source and source > 0 then

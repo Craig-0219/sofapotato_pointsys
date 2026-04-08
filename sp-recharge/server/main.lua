@@ -1,11 +1,11 @@
 -- ═══════════════════════════════════════════════════════════════════════════
---  fb-recharge-core  –  Main Entry Point
+--  sp-recharge  –  Main Entry Point
 -- ═══════════════════════════════════════════════════════════════════════════
 
 -- Activate the framework bridge after all adapter files are loaded
 ActivateBridge()
 
-print('[fb-recharge-core] Resource started. Framework: ' .. (Config.Framework or 'standalone'))
+print('[sp-recharge] Resource started. Framework: ' .. (Config.Framework or 'standalone'))
 
 -- ─────────────────────────────────────────────────────────────────────────────
 --  Admin / Debug commands
@@ -23,11 +23,11 @@ if Config.Debug then
         end
         local account = Points.GetAccount(identifier)
         if account then
-            print(('[fb-recharge-core] %s | points=%d | recharge_total=%d'):format(
+            print(('[sp-recharge] %s | points=%d | recharge_total=%d'):format(
                 identifier, account.points, account.recharge_total
             ))
         else
-            print('[fb-recharge-core] Account not found: ' .. identifier)
+            print('[sp-recharge] Account not found: ' .. identifier)
         end
     end, true)
 
@@ -41,8 +41,8 @@ if Config.Debug then
             return
         end
         local ok, err = Points.Add(identifier, amount, 'admin_debug', { admin = 'console' })
-        print(ok and ('[fb-recharge-core] Added %d pts to %s'):format(amount, identifier)
-                  or ('[fb-recharge-core] Error: %s'):format(err))
+        print(ok and ('[sp-recharge] Added %d pts to %s'):format(amount, identifier)
+                  or ('[sp-recharge] Error: %s'):format(err))
     end, true)
 
     --- /rc_recharge <identifier> <cashAmount> <pointAmount> <orderId>
@@ -68,12 +68,12 @@ if Config.Debug then
         })
 
         if result.success then
-            print(('[fb-recharge-core] Recharge OK | pts %d→%d | total=%d | newTiers=%s'):format(
+            print(('[sp-recharge] Recharge OK | pts %d→%d | total=%d | newTiers=%s'):format(
                 result.pointsBefore, result.pointsAfter, result.rechargeTotal,
                 table.concat(result.newThresholds or {}, ',')
             ))
         else
-            print(('[fb-recharge-core] Recharge FAILED: %s (duplicate=%s)'):format(
+            print(('[sp-recharge] Recharge FAILED: %s (duplicate=%s)'):format(
                 result.error, tostring(result.duplicate)
             ))
         end
@@ -90,10 +90,10 @@ if Config.Debug then
         end
         local progress = Rewards.GetRechargeProgress(identifier, rewardGroup)
         if not progress then
-            print('[fb-recharge-core] Group not found: ' .. rewardGroup)
+            print('[sp-recharge] Group not found: ' .. rewardGroup)
             return
         end
-        print(('[fb-recharge-core] Progress for %s [%s] – total=%d'):format(
+        print(('[sp-recharge] Progress for %s [%s] – total=%d'):format(
             identifier, rewardGroup, progress.rechargeTotal
         ))
         for _, tier in ipairs(progress.tiers) do
@@ -114,7 +114,7 @@ if Config.Debug then
             return
         end
         local ok, err = Rewards.ClaimReward(identifier, rewardGroup, tierId, nil)
-        print(ok and ('[fb-recharge-core] Claimed %s/%s for %s'):format(rewardGroup, tierId, identifier)
-                  or ('[fb-recharge-core] Claim FAILED: %s'):format(tostring(err)))
+        print(ok and ('[sp-recharge] Claimed %s/%s for %s'):format(rewardGroup, tierId, identifier)
+                  or ('[sp-recharge] Claim FAILED: %s'):format(tostring(err)))
     end, true)
 end

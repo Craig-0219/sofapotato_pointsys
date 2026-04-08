@@ -10,7 +10,7 @@ Points = {}
 
 local function debugLog(msg)
     if Config.Debug then
-        print(('[fb-recharge-core][Points] %s'):format(msg))
+        print(('[sp-recharge][Points] %s'):format(msg))
     end
 end
 

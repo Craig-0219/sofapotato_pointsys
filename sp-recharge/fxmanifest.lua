@@ -2,7 +2,7 @@ fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
 
-name        'fb-recharge-core'
+name        'sp-recharge'
 description 'FiveM Recharge Core System - Points & Cumulative Rewards'
 version     '1.0.0'
 author      'fb-dev'

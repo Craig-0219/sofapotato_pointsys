@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════════
---  fb-recharge-core  –  Database Schema
+--  sp-recharge  –  Database Schema
 --  Run once before starting the resource.
 -- ═══════════════════════════════════════════════════════════════════════════
 

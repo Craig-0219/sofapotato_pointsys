@@ -32,7 +32,7 @@ function ActivateBridge()
     local adapter = _adapters[name]
 
     if not adapter then
-        print(('[fb-recharge-core] WARNING: No adapter for framework "%s". Falling back to standalone.'):format(name))
+        print(('[sp-recharge] WARNING: No adapter for framework "%s". Falling back to standalone.'):format(name))
         adapter = _adapters['standalone']
     end
 
@@ -41,5 +41,5 @@ function ActivateBridge()
         Bridge[k] = v
     end
 
-    print(('[fb-recharge-core] Framework bridge activated: %s'):format(name))
+    print(('[sp-recharge] Framework bridge activated: %s'):format(name))
 end

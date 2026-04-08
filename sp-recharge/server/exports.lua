@@ -3,7 +3,7 @@
 --
 --  All exports are server-side.
 --  Usage from another resource:
---    exports['fb-recharge-core']:GetPoints('license:xxxx')
+--    exports['sp-recharge']:GetPoints('license:xxxx')
 -- ═══════════════════════════════════════════════════════════════════════════
 
 local function resolveIdentifier(source)

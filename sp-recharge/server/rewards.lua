@@ -12,7 +12,7 @@ Rewards = {}
 
 local function debugLog(msg)
     if Config.Debug then
-        print(('[fb-recharge-core][Rewards] %s'):format(msg))
+        print(('[sp-recharge][Rewards] %s'):format(msg))
     end
 end
 
@@ -168,7 +168,7 @@ function Rewards.ClaimReward(identifier, rewardGroup, tierId, source)
         -- Claim record already inserted; log errors but don't roll back
         -- (partial delivery is better than silent loss)
         local errMsg = table.concat(dispErrs, '; ')
-        print(('[fb-recharge-core][Rewards] Partial dispatch error for %s %s/%s: %s')
+        print(('[sp-recharge][Rewards] Partial dispatch error for %s %s/%s: %s')
             :format(identifier, rewardGroup, tierId, errMsg))
     end
 

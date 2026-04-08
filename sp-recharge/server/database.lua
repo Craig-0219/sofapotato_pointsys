@@ -14,7 +14,7 @@ end
 
 local function debugLog(msg)
     if Config.Debug then
-        print(('[fb-recharge-core][DB] %s'):format(msg))
+        print(('[sp-recharge][DB] %s'):format(msg))
     end
 end
 
