@@ -4,6 +4,7 @@ FiveM 儲值點數／累儲獎勵核心，支援 `oxmysql` 與多框架 bridge�
 
 ## 新增功能：AutoSQL
 
+
 資源啟動時會自動讀取並執行 `sql/install.sql`，用於自動建立所需資料表（`CREATE TABLE IF NOT EXISTS ...`）。
 
 - 自動執行檔案：`sql/install.sql`
@@ -19,10 +20,6 @@ Config.AutoSQL = {
     LogEachStatement = false,
 }
 ```
-
-- `Enable`：是否啟用自動 SQL（`false` 時不執行）。
-- `File`：要載入的 SQL 相對路徑。
-- `LogEachStatement`：是否逐條輸出執行 log。
 
 ## Server Exports（完整）
 
