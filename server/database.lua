@@ -182,8 +182,9 @@ function DB.OrderExists(orderId)
 end
 
 ---@param params table
+---@return boolean
 function DB.InsertOrder(params)
-    MySQL.insert.await(
+    local id = MySQL.insert.await(
         ('INSERT INTO `%s` (`identifier`,`order_id`,`provider`,`provider_trade_no`,`cash_amount`,`point_amount`,`voucher_cashback`,`member_tier`,`remark`) VALUES (?,?,?,?,?,?,?,?,?)')
             :format(tbl('Orders')),
         {
@@ -198,6 +199,7 @@ function DB.InsertOrder(params)
             params.remark          or nil,
         }
     )
+    return (id or 0) > 0
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────

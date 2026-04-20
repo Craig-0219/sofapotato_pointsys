@@ -150,16 +150,14 @@ end)
 -- ── vehicle (stub) ───────────────────────────────────────────────────────────
 RewardDispatcher.Register('vehicle', function(source, identifier, reward)
     -- TODO: 接入載具所有權系統
-    print(('[sp-recharge][RewardDispatcher] STUB vehicle: %s model=%s'):format(identifier, tostring(reward.model)))
-    if source and source > 0 then Bridge.Notify(source, '載具獎勵已記錄，請聯繫管理員領取。', 'info') end
-    return true
+    print(('[sp-recharge][RewardDispatcher] STUB vehicle: %s model=%s — not implemented, reward NOT delivered'):format(identifier, tostring(reward.model)))
+    return false, 'vehicle reward not implemented'
 end)
 
 -- ── vip_days (stub) ──────────────────────────────────────────────────────────
 RewardDispatcher.Register('vip_days', function(source, identifier, reward)
     -- TODO: 接入 VIP 資源
     local days = tonumber(reward.days) or 0
-    print(('[sp-recharge][RewardDispatcher] STUB vip_days: %s days=%d'):format(identifier, days))
-    if source and source > 0 then Bridge.Notify(source, ('VIP %d 天已記錄，請稍候系統更新。'):format(days), 'info') end
-    return true
+    print(('[sp-recharge][RewardDispatcher] STUB vip_days: %s days=%d — not implemented, reward NOT delivered'):format(identifier, days))
+    return false, 'vip_days reward not implemented'
 end)
