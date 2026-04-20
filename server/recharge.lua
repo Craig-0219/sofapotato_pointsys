@@ -126,7 +126,7 @@ function Recharge.ApplyRecharge(data)
     end
 
     -- ── 6. 記錄訂單 ───────────────────────────────────────────────────────────
-    DB.InsertOrder({
+    local orderOk = DB.InsertOrder({
         identifier      = identifier,
         orderId         = orderId,
         provider        = data.provider or 'manual',
@@ -137,6 +137,11 @@ function Recharge.ApplyRecharge(data)
         memberTier      = tier.id,
         remark          = data.remark,
     })
+    if not orderOk then
+        print(('[sp-recharge][Recharge] WARNING: InsertOrder failed for orderId=%s identifier=%s — points credited but order not recorded; idempotency protection may be lost'):format(
+            orderId, identifier
+        ))
+    end
 
     debugLog(('Recharge %s | +%d pts, +%d vouchers | tier=%s | total %d→%d'):format(
         orderId, pointAmount, cashbackPoints, tier.id, totalBefore, totalAfter

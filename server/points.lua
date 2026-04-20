@@ -72,8 +72,7 @@ function Points.Add(identifier, amount, reason, metadata)
     amount = tonumber(amount)
     if not amount or amount <= 0 then return false, 'amount must be > 0' end
 
-    DB.EnsureAccount(identifier)
-    local before      = Points.Get(identifier)
+    local before      = (DB.EnsureAccount(identifier) or {}).points or 0
     local ok, account = DB.AddPoints(identifier, amount)
     if not ok then return false, 'database update failed' end
 
@@ -89,8 +88,7 @@ function Points.Remove(identifier, amount, reason, metadata)
     amount = tonumber(amount)
     if not amount or amount <= 0 then return false, 'amount must be > 0' end
 
-    DB.EnsureAccount(identifier)
-    local before = Points.Get(identifier)
+    local before = (DB.EnsureAccount(identifier) or {}).points or 0
     if before < amount then
         return false, ('點數不足：現有 %d，需要 %d'):format(before, amount)
     end
@@ -118,8 +116,7 @@ function Points.AddVouchers(identifier, amount, reason, metadata)
     amount = tonumber(amount)
     if not amount or amount <= 0 then return false, 'amount must be > 0' end
 
-    DB.EnsureAccount(identifier)
-    local before      = Points.GetVouchers(identifier)
+    local before      = (DB.EnsureAccount(identifier) or {}).vouchers or 0
     local ok, account = DB.AddVouchers(identifier, amount)
     if not ok then return false, 'database update failed' end
 
@@ -135,8 +132,7 @@ function Points.RemoveVouchers(identifier, amount, reason, metadata)
     amount = tonumber(amount)
     if not amount or amount <= 0 then return false, 'amount must be > 0' end
 
-    DB.EnsureAccount(identifier)
-    local before = Points.GetVouchers(identifier)
+    local before = (DB.EnsureAccount(identifier) or {}).vouchers or 0
     if before < amount then
         return false, ('點券不足：現有 %d，需要 %d'):format(before, amount)
     end
@@ -163,8 +159,7 @@ function Points.IssueCashback(identifier, amount, metadata)
     amount = tonumber(amount)
     if not amount or amount <= 0 then return false, 'amount must be > 0' end
 
-    DB.EnsureAccount(identifier)
-    local before      = Points.GetVouchers(identifier)
+    local before      = (DB.EnsureAccount(identifier) or {}).vouchers or 0
     local ok, account = DB.AddVouchers(identifier, amount)
     if not ok then return false, 'database update failed' end
 
@@ -174,34 +169,3 @@ function Points.IssueCashback(identifier, amount, metadata)
     return true, nil
 end
 
-local function resolveId(source)
-    local src = tonumber(source)
-    if not src then return nil end
-
-    local candidates = {}
-    local seen = {}
-    local function push(value)
-        if value == nil then
-            return
-        end
-
-        local text = tostring(value)
-        if text == '' or seen[text] then
-            return
-        end
-
-        seen[text] = true
-        candidates[#candidates + 1] = text
-    end
-
-    push(Bridge.GetIdentifier and Bridge.GetIdentifier(src) or nil)
-
-    for i = 1, #candidates do
-        local candidate = candidates[i]
-        if DB.GetAccount(candidate) then
-            return candidate
-        end
-    end
-
-    return candidates[1]
-end
